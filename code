@@ -1,0 +1,32 @@
+import pytz
+from datetime import datetime
+print("Deutsch, Norsk, English")
+language = input("Velg språk / Select a language / Wählen Sie eine Sprache: ").strip().lower()
+
+if language == "norsk":
+    print("Hvilken by skal du ha tiden til?")
+    city = input("Skriv inn byens navn: ").strip().lower()
+elif language == "english":
+    print("Which city do you want the time for?")
+    city = input("Enter the name of the city: ").strip().lower()
+elif language == "deutsch":
+    print("Für welche Stadt möchten Sie die Uhrzeit wissen?")
+    city = input("Geben Sie den Namen der Stadt ein: ").strip().lower()
+else:
+    print("Språk ikke gjenkjent / Language not recognized / Sprache nicht erkannt")
+    exit()
+# Define a dictionary with city time zones
+city_timezones = {
+    "oslo": "Europe/Oslo",
+    "berlin": "Europe/Berlin",
+    "london": "Europe/London",
+    "new york": "America/New_York",
+    "tokyo": "Asia/Tokyo",
+    "sydney": "Australia/Sydney"
+}
+# Check if the city is in the dictionary
+if city in city_timezones:
+    timezone = pytz.timezone(city_timezones[city])
+    # Get the current time in the specified timezone
+    current_time = datetime.now(pytz.UTC).astimezone(timezone)
+    print(f"The current time in {city.title()} is: {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
